@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramientas Gratis Online</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fa;
+padding:20px;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+color:#2563eb;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.card h2{
+margin-bottom:15px;
+font-size:20px;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ddd;
+border-radius:8px;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.result{
+margin-top:10px;
+font-weight:bold;
+word-break:break-all;
+}
+</style>
+</head>
+<body>
+
+<h1>🛠 Herramientas Gratis Online</h1>
+
+<div class="grid">
+
+<div class="card">
+<h2>🔐 Generador de Contraseñas</h2>
+<button onclick="generarPassword()">Generar</button>
+<div id="password" class="result"></div>
+</div>
+
+<div class="card">
+<h2>🧮 Calculadora</h2>
+<input type="text" id="calc">
+<button onclick="calcular()">Calcular</button>
+<div id="resultadoCalc" class="result"></div>
+</div>
+
+<div class="card">
+<h2>🔠 Conversor de Texto</h2>
+<textarea id="texto"></textarea>
+<button onclick="mayusculas()">MAYÚSCULAS</button>
+<button onclick="minusculas()">minúsculas</button>
+</div>
+
+<div class="card">
+<h2>📏 Contador de Caracteres</h2>
+<textarea id="contadorTexto" onkeyup="contar()"></textarea>
+<div id="contador" class="result">0 caracteres</div>
+</div>
+
+<div class="card">
+<h2>🎲 Generador de Nombre</h2>
+<button onclick="nombreRandom()">Generar</button>
+<div id="nombre" class="result"></div>
+</div>
+
+<div class="card">
+<h2>📱 Generador QR</h2>
+<input id="qrtexto" placeholder="Ingrese texto o URL">
+<button onclick="crearQR()">Crear QR</button>
+<div id="qr"></div>
+</div>
+
+</div>
+
+<script>
+
+function generarPassword(){
+const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%';
+let pass='';
+for(let i=0;i<12;i++){
+pass+=chars.charAt(Math.floor(Math.random()*chars.length));
+}
+document.getElementById('password').innerText=pass;
+}
+
+function calcular(){
+try{
+document.getElementById('resultadoCalc').innerText=
+eval(document.getElementById('calc').value);
+}catch{
+document.getElementById('resultadoCalc').innerText='Error';
+}
+}
+
+function mayusculas(){
+let t=document.getElementById('texto');
+t.value=t.value.toUpperCase();
+}
+
+function minusculas(){
+let t=document.getElementById('texto');
+t.value=t.value.toLowerCase();
+}
+
+function contar(){
+let texto=document.getElementById('contadorTexto').value;
+document.getElementById('contador').innerText=
+texto.length+' caracteres';
+}
+
+function nombreRandom(){
+const nombres=[
+'TechPro',
+'SmartWeb',
+'DigitalPlus',
+'WebMaster',
+'FullTech',
+'NovaApps',
+'QuickTools',
+'UltraWeb'
+];
+
+document.getElementById('nombre').innerText=
+nombres[Math.floor(Math.random()*nombres.length)];
+}
+
+function crearQR(){
+let texto=document.getElementById('qrtexto').value;
+
+document.getElementById('qr').innerHTML=
+'<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='
++ encodeURIComponent(texto) + '">';
+}
+
+</script>
+
+</body>
+</html>
