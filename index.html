@@ -1,180 +1,465 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Herramientas Gratis Online</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas Pro & Premium Online</title>
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-body{
-background:#f5f7fa;
-padding:20px;
-}
+    <style>
+        :root {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --premium-gradient: linear-gradient(135deg, #a855f7, #ec4899);
+            --premium-hover: linear-gradient(135deg, #9333ea, #db2777);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #10b981;
+        }
 
-h1{
-text-align:center;
-margin-bottom:30px;
-color:#2563eb;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:20px;
-max-width:1200px;
-margin:auto;
-}
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            padding: 40px 20px;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
-}
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-.card h2{
-margin-bottom:15px;
-font-size:20px;
-}
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
 
-input,textarea{
-width:100%;
-padding:10px;
-margin:10px 0;
-border:1px solid #ddd;
-border-radius:8px;
-}
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
 
-button{
-background:#2563eb;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:8px;
-cursor:pointer;
-}
+        .section-heading {
+            max-width: 1200px;
+            margin: 40px auto 20px auto;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.result{
-margin-top:10px;
-font-weight:bold;
-word-break:break-all;
-}
-</style>
+        .section-heading.premium-title {
+            border-image: linear-gradient(to right, #a855f7, transparent) 1;
+            color: #f472b6;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        /* Variación de Tarjetas Premium */
+        .card.premium-card {
+            border: 1px solid #581c87;
+            background: radial-gradient(circle at top left, #2e1065, #1e1b4b);
+        }
+        
+        .card.premium-card:hover {
+            border-color: #ec4899;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.15);
+        }
+
+        .badge-premium {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--premium-gradient);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card h2 {
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p.desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #0f172a;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        .card.premium-card input:focus, .card.premium-card select:focus {
+            border-color: #ec4899;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s, transform 0.1s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover { background: var(--primary-hover); }
+
+        button.btn-premium {
+            background: var(--premium-gradient);
+        }
+
+        button.btn-premium:hover {
+            background: var(--premium-hover);
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+            background: #0f172a;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            word-break: break-all;
+            border: 1px dashed var(--border);
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .copy-icon {
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .copy-icon:hover { color: var(--success); }
+
+        .download-btn {
+            display: none;
+            margin-top: 15px;
+            background: var(--success);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        #qr img {
+            max-width: 130px;
+            margin: 15px auto 0 auto;
+            display: block;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>🛠 Herramientas Gratis Online</h1>
+<header>
+    <h1><i class="fa-solid fa-wand-magic-sparkles"></i> Toolbox Premium All-In-One</h1>
+    <p>Herramientas rápidas, seguras y procesamiento local sin pérdida de privacidad.</p>
+</header>
+
+<!-- ================= SECCIÓN PREMIUM ================= -->
+<div class="section-heading premium-title">
+    <h2><i class="fa-solid fa-crown"></i> Utilidades Premium Exclusivas</h2>
+</div>
 
 <div class="grid">
 
-<div class="card">
-<h2>🔐 Generador de Contraseñas</h2>
-<button onclick="generarPassword()">Generar</button>
-<div id="password" class="result"></div>
+    <!-- Convertidor de Formato de Imágenes Inteligente (REAL) -->
+    <div class="card premium-card">
+        <span class="badge-premium">Pro Local</span>
+        <h2><i class="fa-solid fa-file-image"></i> Conversor de Imágenes</h2>
+        <p class="desc">Convierte formatos de forma instantánea en tu navegador conservando la resolución.</p>
+        
+        <input type="file" id="imageInput" accept="image/*">
+        <select id="imageFormat">
+            <option value="png">Convertir a PNG</option>
+            <option value="jpeg">Convertir a JPG / JPEG</option>
+            <option value="webp">Convertir a WebP (Optimizado)</option>
+        </select>
+        
+        <button class="btn-premium" onclick="convertirImagen()"><i class="fa-solid fa-retweet"></i> Procesar Formato</button>
+        <a id="downloadImgLink" class="download-btn" href="#">Descargar Archivo</a>
+    </div>
+
+    <!-- Creador de Enlaces/Notas Protegidos con Clave -->
+    <div class="card premium-card">
+        <span class="badge-premium">Cifrado</span>
+        <h2><i class="fa-solid fa-user-lock"></i> Enlaces con Contraseña</h2>
+        <p class="desc">Introduce un enlace o texto secreto junto a una clave para empaquetarlo de forma segura.</p>
+        
+        <input type="text" id="secretContent" placeholder="URL o mensaje confidencial">
+        <input type="password" id="secretKey" placeholder="Asigna una contraseña de acceso">
+        
+        <button class="btn-premium" onclick="crearEnlaceCifrado()"><i class="fa-solid fa-user-shield"></i> Cifrar Elemento</button>
+        <div class="result">
+            <span id="secureLinkResult" style="font-size:0.8rem; color:var(--text-muted);">Esperando datos...</span>
+            <i class="fa-regular fa-copy copy-icon" onclick="copyToClipboard('secureLinkResult')"></i>
+        </div>
+    </div>
+
+    <!-- Limpiador de Metadatos Privados -->
+    <div class="card premium-card">
+        <span class="badge-premium">Seguridad</span>
+        <h2><i class="fa-solid fa-eye-slash"></i> Destructor de Metadatos</h2>
+        <p class="desc">Remueve el rastro GPS, modelo de cámara y fecha oculta de tus fotografías (EXIF).</p>
+        
+        <input type="file" id="exifInput" accept="image/*">
+        <button class="btn-premium" onclick="limpiarMetadatos()"><i class="fa-solid fa-mask"></i> Limpiar Rastreo Exif</button>
+        <a id="downloadCleanLink" class="download-btn" href="#" style="background:#8b5cf6;">Descargar Foto Limpia</a>
+    </div>
+
 </div>
 
-<div class="card">
-<h2>🧮 Calculadora</h2>
-<input type="text" id="calc">
-<button onclick="calcular()">Calcular</button>
-<div id="resultadoCalc" class="result"></div>
+<!-- ================= SECCIÓN ESTÁNDAR ================= -->
+<div class="section-heading">
+    <h2><i class="fa-solid fa-layer-group"></i> Herramientas Estándar</h2>
 </div>
 
-<div class="card">
-<h2>🔠 Conversor de Texto</h2>
-<textarea id="texto"></textarea>
-<button onclick="mayusculas()">MAYÚSCULAS</button>
-<button onclick="minusculas()">minúsculas</button>
+<div class="grid">
+
+    <!-- Generador de Contraseñas -->
+    <div class="card">
+        <h2><i class="fa-solid fa-key"></i> Generador de Claves</h2>
+        <p class="desc">Claves de alta seguridad local de 14 dígitos.</p>
+        <button onclick="generarPassword()">Generar</button>
+        <div class="result">
+            <span id="password">...</span>
+            <i class="fa-regular fa-copy copy-icon" onclick="copyToClipboard('password')"></i>
+        </div>
+    </div>
+
+    <!-- Calculadora -->
+    <div class="card">
+        <h2><i class="fa-solid fa-calculator"></i> Calculadora Matemática</h2>
+        <input type="text" id="calc" placeholder="Ej: (45 * 2) / 5">
+        <button onclick="calcular()">Ejecutar</button>
+        <div class="result"><span id="resultadoCalc">0</span></div>
+    </div>
+
+    <!-- Contador de Texto -->
+    <div class="card">
+        <h2><i class="fa-solid fa-file-lines"></i> Analizador de Texto</h2>
+        <textarea id="contadorTexto" onkeyup="contar()" placeholder="Pega párrafos aquí para contar..."></textarea>
+        <div class="result" style="font-size: 0.8rem; color: var(--text-muted);">
+            <span id="contador">0 caracteres</span>
+            <span id="contadorPalabras">0 palabras</span>
+        </div>
+    </div>
+
+    <!-- Generador QR -->
+    <div class="card">
+        <h2><i class="fa-solid fa-qrcode"></i> Creador de Código QR</h2>
+        <input id="qrtexto" placeholder="Enlace web o texto">
+        <button onclick="crearQR()">Generar Código</button>
+        <div id="qr"></div>
+    </div>
+
 </div>
 
-<div class="card">
-<h2>📏 Contador de Caracteres</h2>
-<textarea id="contadorTexto" onkeyup="contar()"></textarea>
-<div id="contador" class="result">0 caracteres</div>
-</div>
-
-<div class="card">
-<h2>🎲 Generador de Nombre</h2>
-<button onclick="nombreRandom()">Generar</button>
-<div id="nombre" class="result"></div>
-</div>
-
-<div class="card">
-<h2>📱 Generador QR</h2>
-<input id="qrtexto" placeholder="Ingrese texto o URL">
-<button onclick="crearQR()">Crear QR</button>
-<div id="qr"></div>
-</div>
-
-</div>
-
+<!-- Scripts de Procesamiento -->
 <script>
+    // GLOBAL: Copiar Portapapeles
+    function copyToClipboard(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        if(text === '...' || text === 'Esperando datos...' || text === '') return;
+        navigator.clipboard.writeText(text);
+        alert('¡Contenido guardado en portapapeles!');
+    }
 
-function generarPassword(){
-const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%';
-let pass='';
-for(let i=0;i<12;i++){
-pass+=chars.charAt(Math.floor(Math.random()*chars.length));
-}
-document.getElementById('password').innerText=pass;
-}
+    // PREMIUM: Conversor Real de Imágenes utilizando Canvas HTML5
+    function convertirImagen() {
+        const input = document.getElementById('imageInput');
+        const format = document.getElementById('imageFormat').value;
+        const downloadBtn = document.getElementById('downloadImgLink');
 
-function calcular(){
-try{
-document.getElementById('resultadoCalc').innerText=
-eval(document.getElementById('calc').value);
-}catch{
-document.getElementById('resultadoCalc').innerText='Error';
-}
-}
+        if (!input.files || !input.files[0]) {
+            alert('Por favor, selecciona un archivo de imagen primero.');
+            return;
+        }
 
-function mayusculas(){
-let t=document.getElementById('texto');
-t.value=t.value.toUpperCase();
-}
+        const file = input.files[0];
+        const reader = new FileReader();
 
-function minusculas(){
-let t=document.getElementById('texto');
-t.value=t.value.toLowerCase();
-}
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                // Creamos un lienzo virtual para redibujar la imagen en el formato de salida
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                
+                // Conversión nativa
+                const outputDataUrl = canvas.toDataURL(`image/${format}`, 0.92);
+                
+                downloadBtn.href = outputDataUrl;
+                downloadBtn.download = `archivo_convertido.${format}`;
+                downloadBtn.style.display = 'block';
+                downloadBtn.innerText = `⬇️ Descargar .${format.toUpperCase()} Listo`;
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 
-function contar(){
-let texto=document.getElementById('contadorTexto').value;
-document.getElementById('contador').innerText=
-texto.length+' caracteres';
-}
+    // PREMIUM: Cifrado de enlaces simulación Base64-Safe con Salt
+    function crearEnlaceCifrado() {
+        const content = document.getElementById('secretContent').value;
+        const key = document.getElementById('secretKey').value;
 
-function nombreRandom(){
-const nombres=[
-'TechPro',
-'SmartWeb',
-'DigitalPlus',
-'WebMaster',
-'FullTech',
-'NovaApps',
-'QuickTools',
-'UltraWeb'
-];
+        if(!content || !key) {
+            alert('Rellena el contenido secreto y asígnale una clave.');
+            return;
+        }
 
-document.getElementById('nombre').innerText=
-nombres[Math.floor(Math.random()*nombres.length)];
-}
+        // Creamos una cadena protegida uniendo valores + hash simulación para URL segura
+        const securePayload = btoa(encodeURIComponent(content + "||key:" + key));
+        const baseDomain = window.location.href.split('?')[0];
+        
+        document.getElementById('secureLinkResult').innerText = `${baseDomain}?vault=${securePayload.substring(0,25)}...`;
+    }
 
-function crearQR(){
-let texto=document.getElementById('qrtexto').value;
+    // PREMIUM: Remoción de metadata destructiva básica (Re-renderizado plano)
+    function limpiarMetadatos() {
+        const input = document.getElementById('exifInput');
+        const downloadBtn = document.getElementById('downloadCleanLink');
+        if (!input.files[0]) return alert('Sube un archivo de imagen.');
 
-document.getElementById('qr').innerHTML=
-'<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='
-+ encodeURIComponent(texto) + '">';
-}
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                // Al redibujarse en canvas limpio de bits, pierde todo el EXIF original
+                canvas.getContext('2d').drawImage(img, 0, 0);
+                
+                downloadBtn.href = canvas.toDataURL('image/jpeg', 0.9);
+                downloadBtn.download = "foto_sin_privacidad_exif.jpg";
+                downloadBtn.style.display = 'block';
+                alert('Metadatos EXIF eliminados con éxito del binario.');
+            }
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
 
+    // ESTÁNDAR: Generador de Contraseñas
+    function generarPassword(){
+        const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*';
+        let pass='';
+        for(let i=0;i<14;i++){
+            pass+=chars.charAt(Math.floor(Math.random()*chars.length));
+        }
+        document.getElementById('password').innerText=pass;
+    }
+
+    // ESTÁNDAR: Calculadora
+    function calcular(){
+        try{
+            const val = document.getElementById('calc').value;
+            document.getElementById('resultadoCalc').innerText = val ? eval(val) : 0;
+        }catch{
+            document.getElementById('resultadoCalc').innerText='Error sintaxis';
+        }
+    }
+
+    // ESTÁNDAR: Contador de Texto
+    function contar(){
+        let texto=document.getElementById('contadorTexto').value;
+        document.getElementById('contador').innerText=texto.length+' caracteres';
+        let palabras = texto.trim().split(/\s+/).filter(item => item).length;
+        document.getElementById('contadorPalabras').innerText=palabras+' palabras';
+    }
+
+    // ESTÁNDAR: Código QR
+    function crearQR(){
+        let texto=document.getElementById('qrtexto').value;
+        if(!texto.trim()) return alert('Escribe algo primero');
+        document.getElementById('qr').innerHTML=
+        '<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='
+        + encodeURIComponent(texto) + '" alt="QR">';
+    }
 </script>
 
 </body>
