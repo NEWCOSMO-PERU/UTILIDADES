@@ -1,14 +1,13 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
-
-<title>NEWCOSMO</title>
+<title>Dashboard Hub</title>
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -33,7 +32,7 @@ body{
 background:
 linear-gradient(
 180deg,
-#08134d,
+#071447,
 #02061b
 );
 
@@ -74,7 +73,7 @@ margin-bottom:25px;
 
 .logo h1{
 
-font-size:26px;
+font-size:30px;
 
 }
 
@@ -104,14 +103,15 @@ cursor:pointer;
 
 }
 
-.active,
-.item:hover{
+.item:hover,
+.active{
 
 background:
+
 linear-gradient(
 90deg,
-#3941b7,
-#20275f
+#3840b8,
+#20295f
 );
 
 }
@@ -138,7 +138,7 @@ display:block;
 
 h2{
 
-margin-bottom:16px;
+margin-bottom:20px;
 
 }
 
@@ -147,7 +147,7 @@ margin-bottom:16px;
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(230px,1fr));
+repeat(auto-fit,minmax(220px,1fr));
 
 gap:18px;
 
@@ -155,28 +155,33 @@ gap:18px;
 
 .tool{
 
-padding:24px;
+padding:22px;
+
+background:
+
+rgba(255,255,255,.04);
 
 border-radius:20px;
 
-background:
-rgba(255,255,255,.04);
+}
+
+.tool h3{
+
+margin:12px 0;
 
 }
 
 .tool button{
 
-margin-top:15px;
-
 padding:12px 18px;
 
 border:none;
 
-background:#5762ff;
+border-radius:10px;
+
+background:#5860ff;
 
 color:white;
-
-border-radius:10px;
 
 cursor:pointer;
 
@@ -186,13 +191,14 @@ cursor:pointer;
 
 display:none;
 
-margin-top:25px;
+margin-top:30px;
 
-padding:20px;
+padding:25px;
 
-border-radius:20px;
+border-radius:18px;
 
 background:
+
 rgba(255,255,255,.04);
 
 }
@@ -205,11 +211,11 @@ display:block;
 
 input{
 
-margin-top:14px;
-
 width:100%;
 
 padding:14px;
+
+margin-top:12px;
 
 border:none;
 
@@ -219,7 +225,7 @@ border-radius:10px;
 
 img{
 
-max-width:250px;
+max-width:260px;
 
 margin-top:20px;
 
@@ -236,6 +242,12 @@ background:white;
 padding:10px;
 
 display:inline-block;
+
+}
+
+button{
+
+margin-top:12px;
 
 }
 
@@ -281,43 +293,19 @@ white-space:nowrap;
 
 <div class="logo">
 
-<h1>NEWCOSMO</h1>
+<h1>DASHBOARD</h1>
 
-<span>UTILIDADES</span>
+<span>HUB</span>
 
 </div>
-
 
 <div class="menu">
 
 <div class="item active"
-onclick="show('home',this)">
-🏠 Inicio
-</div>
-
-<div class="item"
-onclick="show('books',this)">
-📚 Books
-</div>
-
-<div class="item"
-onclick="show('manuales',this)">
-📘 Manuales
-</div>
-
-<div class="item"
-onclick="show('store',this)">
-🛒 Store
-</div>
-
-<div class="item"
-onclick="show('tonos',this)">
-🎵 Tonos
-</div>
-
-<div class="item"
 onclick="show('utilidades',this)">
-🛠 Utilidades
+
+🛠 UTILIDADES
+
 </div>
 
 </div>
@@ -328,54 +316,10 @@ onclick="show('utilidades',this)">
 <div class="content">
 
 <div
-id="home"
+id="utilidades"
 class="panel active">
 
-<h2>Bienvenido</h2>
-
-<p>
-Selecciona una opción.
-</p>
-
-</div>
-
-
-<div id="books"
-class="panel">
-
-<h2>📚 BOOKS</h2>
-
-</div>
-
-
-<div id="manuales"
-class="panel">
-
-<h2>📘 MANUALES</h2>
-
-</div>
-
-
-<div id="store"
-class="panel">
-
-<h2>🛒 STORE</h2>
-
-</div>
-
-
-<div id="tonos"
-class="panel">
-
-<h2>🎵 TONOS</h2>
-
-</div>
-
-
-<div id="utilidades"
-class="panel">
-
-<h2>🛠 UTILIDADES</h2>
+<h2>UTILIDADES</h2>
 
 <div class="tools">
 
@@ -383,15 +327,10 @@ class="panel">
 
 📄
 
-<h3>
-Convertidor Documentos
-</h3>
+<h3>DOCUMENTOS</h3>
 
-<button
-onclick="openTool('doc')">
-
+<button onclick="openTool('doc')">
 Abrir
-
 </button>
 
 </div>
@@ -401,15 +340,10 @@ Abrir
 
 🖼️
 
-<h3>
-Convertidor Imagen
-</h3>
+<h3>IMÁGENES</h3>
 
-<button
-onclick="openTool('img')">
-
+<button onclick="openTool('img')">
 Abrir
-
 </button>
 
 </div>
@@ -417,17 +351,51 @@ Abrir
 
 <div class="tool">
 
-📱
+🔳
 
-<h3>
-Generador QR
-</h3>
+<h3>QR</h3>
 
-<button
-onclick="openTool('qr')">
-
+<button onclick="openTool('qr')">
 Abrir
+</button>
 
+</div>
+
+
+<div class="tool">
+
+✂️
+
+<h3>RECORTAR</h3>
+
+<button onclick="openTool('crop')">
+Abrir
+</button>
+
+</div>
+
+
+<div class="tool">
+
+🎵
+
+<h3>DESCARGAR MP3</h3>
+
+<button onclick="openTool('mp3')">
+Abrir
+</button>
+
+</div>
+
+
+<div class="tool">
+
+🎬
+
+<h3>DESCARGAR VIDEO</h3>
+
+<button onclick="openTool('video')">
+Abrir
 </button>
 
 </div>
@@ -435,23 +403,18 @@ Abrir
 </div>
 
 
-<div
-id="doc"
-class="app">
+<div id="doc" class="app">
 
-<h3>Convertir documento</h3>
+<h3>📄 DOCUMENTOS</h3>
 
-<input
-type="file">
+<input type="file">
 
 </div>
 
 
-<div
-id="img"
-class="app">
+<div id="img" class="app">
 
-<h3>Convertir imagen</h3>
+<h3>🖼️ IMÁGENES</h3>
 
 <input
 type="file"
@@ -463,18 +426,15 @@ onchange="preview(event)">
 </div>
 
 
-<div
-id="qr"
-class="app">
+<div id="qr" class="app">
 
-<h3>Generador QR</h3>
+<h3>🔳 GENERADOR QR</h3>
 
 <input
 id="qrText"
-placeholder="Escribe texto">
+placeholder="Texto o URL">
 
-<button
-onclick="generateQR()">
+<button onclick="generateQR()">
 
 Generar
 
@@ -484,36 +444,56 @@ Generar
 
 </div>
 
+
+<div id="crop" class="app">
+
+<h3>✂️ RECORTAR</h3>
+
+<input
+type="file"
+accept="image/*">
+
 </div>
+
+
+<div id="mp3" class="app">
+
+<h3>🎵 DESCARGAR MP3</h3>
+
+<input
+placeholder="Pega URL">
+
+<button>
+
+Descargar
+
+</button>
+
+</div>
+
+
+<div id="video" class="app">
+
+<h3>🎬 DESCARGAR VIDEO</h3>
+
+<input
+placeholder="Pega URL">
+
+<button>
+
+Descargar
+
+</button>
 
 </div>
 
 </div>
 
+</div>
+
+</div>
 
 <script>
-
-function show(id,el){
-
-document
-.querySelectorAll(".panel")
-.forEach(
-x=>x.classList.remove("active")
-);
-
-document
-.getElementById(id)
-.classList.add("active");
-
-document
-.querySelectorAll(".item")
-.forEach(
-x=>x.classList.remove("active")
-);
-
-el.classList.add("active");
-
-}
 
 function openTool(id){
 
@@ -543,16 +523,18 @@ e.target.files[0]
 
 function generateQR(){
 
-let box=
-document.getElementById(
+let qr=
+document
+.getElementById(
 "qrcode"
 );
 
-box.innerHTML="";
+qr.innerHTML="";
 
 new QRCode(
-box,
-document.getElementById(
+qr,
+document
+.getElementById(
 "qrText"
 ).value
 );
@@ -564,3 +546,4 @@ document.getElementById(
 </body>
 
 </html>
+```
