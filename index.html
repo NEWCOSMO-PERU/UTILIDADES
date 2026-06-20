@@ -1,737 +1,566 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toolbox Premium All-In-One | Herramientas Avanzadas Online</title>
 
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Dependencias Premium Locales/Ligeras (Generación de PDF en Cliente) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta charset="UTF-8">
 
-    <style>
-        :root {
-            --bg-body: #0b0f19;
-            --bg-card: #151f32;
-            --bg-input: #090d16;
-            --primary: #3b82f6;
-            --primary-hover: #1d4ed8;
-            --premium-gradient: linear-gradient(135deg, #a855f7, #ec4899);
-            --premium-hover: linear-gradient(135deg, #7e22ce, #be185d);
-            --text-main: #f8fafc;
-            --text-muted: #64748b;
-            --border: #223147;
-            --success: #10b981;
-            --danger: #ef4444;
-            --radius-lg: 20px;
-            --radius-md: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<title>NEWCOSMO</title>
 
-        body {
-            background: var(--bg-body);
-            color: var(--text-main);
-            padding: 40px 20px;
-            min-height: 100vh;
-        }
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            animation: fadeIn 0.8s ease-out;
-        }
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+rel="stylesheet">
 
-        header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #3b82f6, #a855f7, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: auto;
-        }
+<style>
 
-        .section-heading {
-            max-width: 1200px;
-            margin: 50px auto 25px auto;
-            font-size: 1.4rem;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter;
+}
 
-        .section-heading.premium-title {
-            border-image: linear-gradient(to right, #a855f7, transparent) 1;
-            color: #f472b6;
-        }
+body{
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: auto;
-        }
+background:
+linear-gradient(
+180deg,
+#08134d,
+#02061b
+);
 
-        .card {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: var(--radius-lg);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            transition: var(--transition);
-        }
+color:white;
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
-        }
+height:100vh;
 
-        /* Variación Tarjetas Premium */
-        .card.premium-card {
-            border: 1px solid #4c1d95;
-            background: radial-gradient(circle at top left, #1e1b4b, #111026);
-        }
-        
-        .card.premium-card:hover {
-            border-color: #ec4899;
-            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.15);
-        }
+overflow:hidden;
 
-        .badge-premium {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--premium-gradient);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+}
 
-        .card h2 {
-            margin-bottom: 12px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.container{
 
-        .card p.desc {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
+display:grid;
 
-        /* Zona de carga Drag and Drop */
-        .drop-zone {
-            border: 2px dashed var(--border);
-            padding: 20px;
-            border-radius: var(--radius-md);
-            text-align: center;
-            background: var(--bg-input);
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 15px;
-        }
+grid-template-columns:
+260px 1fr;
 
-        .drop-zone:hover, .drop-zone.dragover {
-            border-color: var(--primary);
-            background: rgba(59, 130, 246, 0.05);
-        }
+height:100vh;
 
-        .card.premium-card .drop-zone:hover, .card.premium-card .drop-zone.dragover {
-            border-color: #ec4899;
-            background: rgba(236, 72, 153, 0.05);
-        }
+}
 
-        .drop-zone i {
-            font-size: 2rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
+.sidebar{
 
-        .drop-zone p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+background:#02081d;
 
-        /* Inputs y controles */
-        input, textarea, select {
-            width: 100%;
-            padding: 12px 16px;
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            background: var(--bg-input);
-            color: var(--text-main);
-            font-size: 0.9rem;
-            outline: none;
-            transition: var(--transition);
-        }
+padding:20px;
 
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-        }
+}
 
-        .card.premium-card input:focus, .card.premium-card select:focus, .card.premium-card textarea:focus {
-            border-color: #ec4899;
-            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15);
-        }
+.logo{
 
-        textarea {
-            resize: none;
-            height: 100px;
-        }
+text-align:center;
 
-        /* Botones */
-        button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+margin-bottom:25px;
 
-        button:hover { 
-            background: var(--primary-hover);
-        }
+}
 
-        button.btn-premium {
-            background: var(--premium-gradient);
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
-        }
+.logo h1{
 
-        button.btn-premium:hover {
-            background: var(--premium-hover);
-            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.3);
-        }
+font-size:26px;
 
-        /* Áreas de Resultados y feedback */
-        .result {
-            margin-top: 15px;
-            padding: 14px;
-            background: var(--bg-input);
-            border-radius: var(--radius-md);
-            font-weight: 500;
-            font-size: 0.85rem;
-            word-break: break-all;
-            border: 1px dashed var(--border);
-            min-height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
+}
 
-        .copy-icon {
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-            font-size: 1.1rem;
-        }
+.logo span{
 
-        .copy-icon:hover { color: var(--success); }
+opacity:.7;
 
-        .download-btn {
-            display: none;
-            margin-top: 15px;
-            background: var(--success);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            padding: 14px;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
+}
 
-        .download-btn:hover {
-            opacity: 0.9;
-        }
+.menu{
 
-        .preview-box {
-            font-size: 0.75rem;
-            color: var(--success);
-            margin-top: -10px;
-            margin-bottom: 10px;
-            display: none;
-        }
+display:flex;
 
-        #qr img {
-            max-width: 140px;
-            margin: 20px auto 0 auto;
-            display: block;
-            border-radius: 10px;
-            padding: 5px;
-            background: white;
-        }
+flex-direction:column;
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+gap:10px;
 
-        @media (max-width: 768px) {
-            body { padding: 20px 10px; }
-            header h1 { font-size: 2.2rem; }
-            .grid { grid-template-columns: 1fr; }
-        }
-    </style>
+}
+
+.item{
+
+padding:14px;
+
+border-radius:14px;
+
+cursor:pointer;
+
+}
+
+.active,
+.item:hover{
+
+background:
+linear-gradient(
+90deg,
+#3941b7,
+#20275f
+);
+
+}
+
+.content{
+
+padding:30px;
+
+overflow:auto;
+
+}
+
+.panel{
+
+display:none;
+
+}
+
+.panel.active{
+
+display:block;
+
+}
+
+h2{
+
+margin-bottom:16px;
+
+}
+
+.tools{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(230px,1fr));
+
+gap:18px;
+
+}
+
+.tool{
+
+padding:24px;
+
+border-radius:20px;
+
+background:
+rgba(255,255,255,.04);
+
+}
+
+.tool button{
+
+margin-top:15px;
+
+padding:12px 18px;
+
+border:none;
+
+background:#5762ff;
+
+color:white;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+.app{
+
+display:none;
+
+margin-top:25px;
+
+padding:20px;
+
+border-radius:20px;
+
+background:
+rgba(255,255,255,.04);
+
+}
+
+.app.active{
+
+display:block;
+
+}
+
+input{
+
+margin-top:14px;
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:10px;
+
+}
+
+img{
+
+max-width:250px;
+
+margin-top:20px;
+
+border-radius:14px;
+
+}
+
+#qrcode{
+
+margin-top:20px;
+
+background:white;
+
+padding:10px;
+
+display:inline-block;
+
+}
+
+@media(max-width:768px){
+
+body{
+overflow:auto;
+}
+
+.container{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.menu{
+
+flex-direction:row;
+
+overflow:auto;
+
+}
+
+.item{
+
+white-space:nowrap;
+
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-<header>
-    <h1><i class="fa-solid fa-wand-magic-sparkles"></i> Toolbox Premium All-In-One</h1>
-    <p>Procesamiento avanzado, local y 100% privado en tu navegador. Tus archivos jamás tocan un servidor externo.</p>
-</header>
+<div class="container">
 
-<!-- ================= SECCIÓN PREMIUM ================= -->
-<div class="section-heading premium-title">
-    <h2><i class="fa-solid fa-crown"></i> Utilidades Premium Exclusivas</h2>
-</div>
+<div class="sidebar">
 
-<div class="grid">
+<div class="logo">
 
-    <!-- NUEVO: Convertidor Avanzado de Documentos -->
-    <div class="card premium-card">
-        <span class="badge-premium">Doc Engine</span>
-        <h2><i class="fa-solid fa-file-invoice"></i> Conversor de Documentos</h2>
-        <p class="desc">Intercambia formatos de texto dinámicamente. Importa TXT, MD, JSON o HTML y expórtalos en formatos estructurados o PDF limpio.</p>
-        
-        <div class="drop-zone" onclick="document.getElementById('docInput').click()" id="docDropZone">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
-            <p id="docDropText">Arrastra un archivo o haz clic para subir</p>
-            <input type="file" id="docInput" accept=".txt,.md,.json,.html" style="display:none" onchange="handleDocUpload(this)">
-        </div>
-        <div class="preview-box" id="docPreview"></div>
+<h1>NEWCOSMO</h1>
 
-        <select id="outputDocFormat">
-            <option value="pdf">Exportar como PDF Estructurado</option>
-            <option value="txt">Exportar como Texto Plano (.txt)</option>
-            <option value="md">Exportar como Markdown (.md)</option>
-            <option value="json">Exportar como Estructura (.json)</option>
-        </select>
-        
-        <button class="btn-premium" onclick="convertirDocumento()"><i class="fa-solid fa-arrows-rotate"></i> Convertir Documento</button>
-        <a id="downloadDocLink" class="download-btn" href="#">Descargar Documento</a>
-    </div>
-
-    <!-- Convertidor de Formato de Imágenes Inteligente (REAL) -->
-    <div class="card premium-card">
-        <span class="badge-premium">Pro Image</span>
-        <h2><i class="fa-solid fa-file-image"></i> Conversor de Imágenes</h2>
-        <p class="desc">Modifica extensiones gráficas de manera instantánea en tu entorno de ejecución conservando la densidad de píxeles.</p>
-        
-        <div class="drop-zone" onclick="document.getElementById('imageInput').click()" id="imgDropZone">
-            <i class="fa-solid fa-images"></i>
-            <p id="imgDropText">Suelte su imagen aquí o busque localmente</p>
-            <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(this)">
-        </div>
-        <div class="preview-box" id="imgPreview"></div>
-
-        <select id="imageFormat">
-            <option value="png">Convertir a PNG transparente</option>
-            <option value="jpeg">Convertir a JPG de alta fidelidad</option>
-            <option value="webp">Convertir a WebP (Optimizado para Web)</option>
-        </select>
-        
-        <button class="btn-premium" onclick="convertirImagen()"><i class="fa-solid fa-retweet"></i> Procesar Formato</button>
-        <a id="downloadImgLink" class="download-btn" href="#">Descargar Archivo</a>
-    </div>
-
-    <!-- Creador de Enlaces/Notas Protegidos con Cifrado Real (AES-GCM) -->
-    <div class="card premium-card">
-        <span class="badge-premium">AES-GCM 256</span>
-        <h2><i class="fa-solid fa-user-lock"></i> Cripta de Notas Privadas</h2>
-        <p class="desc">Bloquea cadenas de texto confidenciales con encriptación real simétrica mediante claves derivadas en tu navegador.</p>
-        
-        <textarea id="secretContent" placeholder="Escribe aquí tu mensaje confidencial o contraseñas a encriptar..."></textarea>
-        <input type="password" id="secretKey" placeholder="Establece una frase de paso (Password)">
-        
-        <button class="btn-premium" onclick="crearNotaCifrada()"><i class="fa-solid fa-user-shield"></i> Cifrar Elemento</button>
-        <div class="result">
-            <span id="secureLinkResult" style="font-size:0.75rem; color:var(--text-muted); max-height:40px; overflow:hidden;">Esperando datos...</span>
-            <i class="fa-regular fa-copy copy-icon" onclick="copyToClipboard('secureLinkResult')"></i>
-        </div>
-    </div>
-
-    <!-- Limpiador de Metadatos Privados -->
-    <div class="card premium-card">
-        <span class="badge-premium">Forense Exif</span>
-        <h2><i class="fa-solid fa-eye-slash"></i> Destructor de Metadatos</h2>
-        <p class="desc">Elimina el rastro geográfico GPS, marcas temporales y especificaciones de hardware de captura (EXIF).</p>
-        
-        <div class="drop-zone" onclick="document.getElementById('exifInput').click()" id="exifDropZone">
-            <i class="fa-solid fa-mask"></i>
-            <p id="exifDropText">Subir foto para desinfectar metadatos</p>
-            <input type="file" id="exifInput" accept="image/*" style="display:none" onchange="handleExifUpload(this)">
-        </div>
-        <div class="preview-box" id="exifPreview"></div>
-
-        <button class="btn-premium" onclick="limpiarMetadatos()"><i class="fa-solid fa-shield-halved"></i> Sanitizar Binario EXIF</button>
-        <a id="downloadCleanLink" class="download-btn" href="#" style="background:#8b5cf6;">Descargar Foto Limpia</a>
-    </div>
+<span>SOLUCIONES</span>
 
 </div>
 
-<!-- ================= SECCIÓN ESTÁNDAR ================= -->
-<div class="section-heading">
-    <h2><i class="fa-solid fa-layer-group"></i> Herramientas Estándar</h2>
+
+<div class="menu">
+
+<div class="item active"
+onclick="show('home',this)">
+🏠 Inicio
 </div>
 
-<div class="grid">
+<div class="item"
+onclick="show('books',this)">
+📚 Books
+</div>
 
-    <!-- Generador de Contraseñas Criptográficas -->
-    <div class="card">
-        <h2><i class="fa-solid fa-key"></i> Generador CSPRNG</h2>
-        <p class="desc">Construye contraseñas de alta seguridad basadas en entropía aleatoria nativa del sistema operacional.</p>
-        <button onclick="generarPassword()">Generar Clave Segura</button>
-        <div class="result">
-            <span id="password" style="font-family: monospace; font-size: 1rem;">...</span>
-            <i class="fa-regular fa-copy copy-icon" onclick="copyToClipboard('password')"></i>
-        </div>
-    </div>
+<div class="item"
+onclick="show('manuales',this)">
+📘 Manuales
+</div>
 
-    <!-- Calculadora -->
-    <div class="card">
-        <h2><i class="fa-solid fa-calculator"></i> Calculadora Matemática</h2>
-        <p class="desc">Soporta operaciones aritméticas complejas evaluadas de forma inmediata.</p>
-        <input type="text" id="calc" placeholder="Ej: ((45 * 2) / 5) ** 2">
-        <button onclick="calcular()">Ejecutar Operación</button>
-        <div class="result"><span id="resultadoCalc" style="font-weight: 700; color: var(--primary);">0</span></div>
-    </div>
+<div class="item"
+onclick="show('store',this)">
+🛒 Store
+</div>
 
-    <!-- Analizador de Texto -->
-    <div class="card">
-        <h2><i class="fa-solid fa-file-lines"></i> Analizador de Métricas</h2>
-        <p class="desc">Monitoreo de longitud de caracteres, conteo de palabras e índices de lectura.</p>
-        <textarea id="contadorTexto" onkeyup="contar()" placeholder="Escribe o pega tus párrafos de texto aquí..."></textarea>
-        <div class="result" style="font-size: 0.8rem; color: var(--text-muted); justify-content: space-around;">
-            <span id="contador"><i class="fa-solid fa-italic"></i> 0 caracteres</span>
-            <span id="contadorPalabras"><i class="fa-solid fa-font"></i> 0 palabras</span>
-        </div>
-    </div>
+<div class="item"
+onclick="show('tonos',this)">
+🎵 Tonos
+</div>
 
-    <!-- Generador QR -->
-    <div class="card">
-        <h2><i class="fa-solid fa-qrcode"></i> Creador de Códigos QR</h2>
-        <p class="desc">Codifica URLs o cadenas de texto estructuradas en una matriz bidimensional estandarizada.</p>
-        <input id="qrtexto" placeholder="Enlace web o datos del QR">
-        <button onclick="crearQR()">Generar Matriz QR</button>
-        <div id="qr"></div>
-    </div>
+<div class="item"
+onclick="show('utilidades',this)">
+🛠 Utilidades
+</div>
 
 </div>
 
-<!-- Scripts de Procesamiento Avanzado -->
+</div>
+
+
+<div class="content">
+
+<div
+id="home"
+class="panel active">
+
+<h2>Bienvenido</h2>
+
+<p>
+Selecciona una opción.
+</p>
+
+</div>
+
+
+<div id="books"
+class="panel">
+
+<h2>📚 BOOKS</h2>
+
+</div>
+
+
+<div id="manuales"
+class="panel">
+
+<h2>📘 MANUALES</h2>
+
+</div>
+
+
+<div id="store"
+class="panel">
+
+<h2>🛒 STORE</h2>
+
+</div>
+
+
+<div id="tonos"
+class="panel">
+
+<h2>🎵 TONOS</h2>
+
+</div>
+
+
+<div id="utilidades"
+class="panel">
+
+<h2>🛠 UTILIDADES</h2>
+
+<div class="tools">
+
+<div class="tool">
+
+📄
+
+<h3>
+Convertidor Documentos
+</h3>
+
+<button
+onclick="openTool('doc')">
+
+Abrir
+
+</button>
+
+</div>
+
+
+<div class="tool">
+
+🖼️
+
+<h3>
+Convertidor Imagen
+</h3>
+
+<button
+onclick="openTool('img')">
+
+Abrir
+
+</button>
+
+</div>
+
+
+<div class="tool">
+
+📱
+
+<h3>
+Generador QR
+</h3>
+
+<button
+onclick="openTool('qr')">
+
+Abrir
+
+</button>
+
+</div>
+
+</div>
+
+
+<div
+id="doc"
+class="app">
+
+<h3>Convertir documento</h3>
+
+<input
+type="file">
+
+</div>
+
+
+<div
+id="img"
+class="app">
+
+<h3>Convertir imagen</h3>
+
+<input
+type="file"
+accept="image/*"
+onchange="preview(event)">
+
+<img id="preview">
+
+</div>
+
+
+<div
+id="qr"
+class="app">
+
+<h3>Generador QR</h3>
+
+<input
+id="qrText"
+placeholder="Escribe texto">
+
+<button
+onclick="generateQR()">
+
+Generar
+
+</button>
+
+<div id="qrcode"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
-    // Almacenamiento temporal en memoria de los contenidos leídos
-    let cargadoDocContent = "";
-    let cargadoDocName = "documento";
 
-    // --- MANEJO DE ARRASTRE Y SOLTADO (DRAG & DROP) ---
-    function setupDragAndDrop(dropZoneId, inputId, previewId, textId, type) {
-        const zone = document.getElementById(dropZoneId);
-        const input = document.getElementById(inputId);
-        
-        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
-        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-        zone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            zone.classList.remove('dragover');
-            if(e.dataTransfer.files.length > 0) {
-                input.files = e.dataTransfer.files;
-                if(type === 'doc') handleDocUpload(input);
-                if(type === 'img') handleImageUpload(input);
-                if(type === 'exif') handleExifUpload(input);
-            }
-        });
-    }
+function show(id,el){
 
-    // Inicializaciones de zonas de soltado
-    setupDragAndDrop('docDropZone', 'docInput', 'docPreview', 'docDropText', 'doc');
-    setupDragAndDrop('imgDropZone', 'imageInput', 'imgPreview', 'imgDropText', 'img');
-    setupDragAndDrop('exifDropZone', 'exifInput', 'exifPreview', 'exifDropText', 'exif');
+document
+.querySelectorAll(".panel")
+.forEach(
+x=>x.classList.remove("active")
+);
 
-    // --- MANEJADORES DE CARGA DE ARCHIVOS ---
-    function handleDocUpload(input) {
-        if (!input.files[0]) return;
-        const file = input.files[0];
-        cargadoDocName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            cargadoDocContent = e.target.result;
-            const preview = document.getElementById('docPreview');
-            preview.innerText = `✔️ Cargado: "${file.name}" (${file.size} bytes)`;
-            preview.style.display = 'block';
-        };
-        reader.readAsText(file);
-    }
+document
+.getElementById(id)
+.classList.add("active");
 
-    function handleImageUpload(input) {
-        if (!input.files[0]) return;
-        const preview = document.getElementById('imgPreview');
-        preview.innerText = `✔️ Imagen lista para conversión: "${input.files[0].name}"`;
-        preview.style.display = 'block';
-    }
+document
+.querySelectorAll(".item")
+.forEach(
+x=>x.classList.remove("active")
+);
 
-    function handleExifUpload(input) {
-        if (!input.files[0]) return;
-        const preview = document.getElementById('exifPreview');
-        preview.innerText = `✔️ Estructura binaria lista: "${input.files[0].name}"`;
-        preview.style.display = 'block';
-    }
+el.classList.add("active");
 
-    // --- COPIAR PORTAPAPELES GLOBAL ---
-    function copyToClipboard(elementId) {
-        const text = document.getElementById(elementId).innerText;
-        if(text === '...' || text === 'Esperando datos...' || text === '') return;
-        navigator.clipboard.writeText(text);
-        alert('¡Copiado al portapapeles con éxito!');
-    }
+}
 
-    // --- CONVERSOR PREMIUM DE DOCUMENTOS LOCAL (PDF, TXT, MD, JSON) ---
-    function convertirDocumento() {
-        const format = document.getElementById('outputDocFormat').value;
-        const downloadBtn = document.getElementById('downloadDocLink');
+function openTool(id){
 
-        if (!cargadoDocContent) {
-            alert('Por favor, cargue un archivo válido primero (.txt, .md, .html, .json)');
-            return;
-        }
+document
+.querySelectorAll(".app")
+.forEach(
+x=>x.classList.remove("active")
+);
 
-        let outputBlob;
-        let mimeType = "text/plain";
-        let extension = format;
+document
+.getElementById(id)
+.classList.add("active");
 
-        if (format === 'pdf') {
-            // Conversor dinámico utilizando jsPDF del lado del cliente sin servidores externos
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Tratamiento de saltos de línea para evitar desbordamiento marginal en el PDF
-            const splitText = doc.splitTextToSize(cargadoDocContent, 180);
-            doc.text(splitText, 15, 20);
-            
-            outputBlob = doc.output('blob');
-            mimeType = "application/pdf";
-        } else {
-            let processedText = cargadoDocContent;
-            
-            if (format === 'json') {
-                mimeType = "application/json";
-                try {
-                    // Intenta parsear si ya es JSON, si no, genera un objeto estructurado plano
-                    JSON.parse(cargadoDocContent);
-                } catch(e) {
-                    processedText = JSON.stringify({ contenido: cargadoDocContent, exportado: "Toolbox Premium" }, null, 4);
-                }
-            } else if (format === 'md') {
-                mimeType = "text/markdown";
-            }
+}
 
-            outputBlob = new Blob([processedText], { type: mimeType });
-        }
+function preview(e){
 
-        const dataUrl = URL.createObjectURL(outputBlob);
-        downloadBtn.href = dataUrl;
-        downloadBtn.download = `${cargadoDocName}_convertido.${extension}`;
-        downloadBtn.style.display = 'block';
-        downloadBtn.innerHTML = `<i class="fa-solid fa-file-arrow-down"></i> Descargar .${extension.toUpperCase()} Generado`;
-    }
+document
+.getElementById(
+"preview"
+).src=
+URL.createObjectURL(
+e.target.files[0]
+);
 
-    // --- CONVERSOR REAL DE IMÁGENES MEDIANTE CANVAS ---
-    function convertirImagen() {
-        const input = document.getElementById('imageInput');
-        const format = document.getElementById('imageFormat').value;
-        const downloadBtn = document.getElementById('downloadImgLink');
+}
 
-        if (!input.files || !input.files[0]) {
-            alert('Por favor, seleccione o arrastre una imagen.');
-            return;
-        }
+function generateQR(){
 
-        const file = input.files[0];
-        const reader = new FileReader();
+let box=
+document.getElementById(
+"qrcode"
+);
 
-        reader.onload = function(event) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                
-                const outputDataUrl = canvas.toDataURL(`image/${format}`, 0.95);
-                
-                downloadBtn.href = outputDataUrl;
-                downloadBtn.download = `imagen_convertida.${format}`;
-                downloadBtn.style.display = 'block';
-                downloadBtn.innerHTML = `<i class="fa-solid fa-download"></i> Descargar .${format.toUpperCase()} Listo`;
-            };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
+box.innerHTML="";
 
-    // --- CIFRADO REAL GRADO MILITAR (AES-GCM 256 WEB CRYPTO API) ---
-    async function crearNotaCifrada() {
-        const text = document.getElementById('secretContent').value;
-        const password = document.getElementById('secretKey').value;
+new QRCode(
+box,
+document.getElementById(
+"qrText"
+).value
+);
 
-        if(!text || !password) {
-            alert('Por favor, introduzca el texto y la contraseña de seguridad.');
-            return;
-        }
+}
 
-        try {
-            const enc = new TextEncoder();
-            const salt = window.crypto.getRandomValues(new Uint8Array(16));
-            
-            // Derivación criptográfica de clave PBKDF2
-            const baseKey = await window.crypto.subtle.importKey(
-                "raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]
-            );
-            
-            const key = await window.crypto.subtle.deriveKey(
-                { name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" },
-                baseKey, { name: "AES-GCM", length: 256 }, false, ["encrypt"]
-            );
-
-            const iv = window.crypto.getRandomValues(new Uint8Array(12));
-            const encrypted = await window.crypto.subtle.encrypt(
-                { name: "AES-GCM", iv: iv }, key, enc.encode(text)
-            );
-
-            // Empaquetado binario unificado para transporte seguro
-            const encryptedArr = new Uint8Array(encrypted);
-            const buff = new Uint8Array(salt.byteLength + iv.byteLength + encryptedArr.byteLength);
-            buff.set(salt, 0);
-            buff.set(iv, salt.byteLength);
-            buff.set(encryptedArr, salt.byteLength + iv.byteLength);
-
-            // Conversión limpia a Base64 legible
-            const base64Str = btoa(String.fromCharCode.apply(null, buff));
-            document.getElementById('secureLinkResult').innerText = `VAULT_CIPHERED:${base64Str}`;
-        } catch (e) {
-            document.getElementById('secureLinkResult').innerText = "Error crítico durante el cifrado.";
-        }
-    }
-
-    // --- SANITIZACIÓN Y DESTRUCCIÓN DE METADATOS EXIF ---
-    function limpiarMetadatos() {
-        const input = document.getElementById('exifInput');
-        const downloadBtn = document.getElementById('downloadCleanLink');
-        if (!input.files[0]) return alert('Suba o arrastre un archivo de imagen válido.');
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                // Al mapear y redibujar píxeles puros en un lienzo en blanco se destruye todo el EXIF/GPS anterior
-                canvas.getContext('2d').drawImage(img, 0, 0);
-                
-                downloadBtn.href = canvas.toDataURL('image/jpeg', 0.92);
-                downloadBtn.download = "archivo_sanitizado_sin_exif.jpg";
-                downloadBtn.style.display = 'block';
-                alert('Estructuras de rastreo EXIF destruidas con éxito.');
-            }
-            img.src = e.target.result;
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-
-    // --- ESTÁNDAR: GENERADOR DE CONTRASEÑAS SEGURO (CSPRNG) ---
-    function generarPassword(){
-        const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*()_-+=';
-        let pass='';
-        const randomValues = new Uint32Array(16);
-        window.crypto.getRandomValues(randomValues);
-        
-        for(let i=0; i<16; i++){
-            pass += chars.charAt(randomValues[i] % chars.length);
-        }
-        document.getElementById('password').innerText = pass;
-    }
-
-    // --- ESTÁNDAR: CALCULADORA MATEMÁTICA ---
-    function calcular(){
-        try{
-            const val = document.getElementById('calc').value;
-            // Sanitización básica de expresiones matemáticas permitidas
-            if (/[^0-9\+\-\*\/\(\)\.\s\*\*]/g.test(val)) {
-                document.getElementById('resultadoCalc').innerText = 'Expresión inválida';
-                return;
-            }
-            document.getElementById('resultadoCalc').innerText = val ? eval(val) : 0;
-        }catch{
-            document.getElementById('resultadoCalc').innerText = 'Error sintaxis';
-        }
-    }
-
-    // --- ESTÁNDAR: CONTADOR Y ANALIZADOR DE TEXTO ---
-    function contar(){
-        let texto = document.getElementById('contadorTexto').value;
-        document.getElementById('contador').innerHTML = `<i class="fa-solid fa-italic"></i> ${texto.length} caracteres`;
-        let palabras = texto.trim().split(/\s+/).filter(item => item).length;
-        document.getElementById('contadorPalabras').innerHTML = `<i class="fa-solid fa-font"></i> ${palabras} palabras`;
-    }
-
-    // --- ESTÁNDAR: CÓDIGO QR ---
-    function crearQR(){
-        let texto = document.getElementById('qrtexto').value;
-        if(!texto.trim()) return alert('Escriba un texto o enlace primero.');
-        document.getElementById('qr').innerHTML =
-        '<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='
-        + encodeURIComponent(texto) + '" alt="Matriz QR">';
-    }
 </script>
 
 </body>
+
 </html>
