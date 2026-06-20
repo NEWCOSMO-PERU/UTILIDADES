@@ -7,13 +7,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Dashboard Hub</title>
+<title>Dashboard</title>
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
 rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -55,11 +51,15 @@ height:100vh;
 
 }
 
+/* SIDEBAR */
+
 .sidebar{
 
 background:#02081d;
 
-padding:20px;
+padding:24px;
+
+overflow:auto;
 
 }
 
@@ -67,7 +67,7 @@ padding:20px;
 
 text-align:center;
 
-margin-bottom:25px;
+margin-bottom:30px;
 
 }
 
@@ -83,13 +83,15 @@ opacity:.7;
 
 }
 
+/* MENU */
+
 .menu{
 
 display:flex;
 
 flex-direction:column;
 
-gap:10px;
+gap:8px;
 
 }
 
@@ -101,10 +103,12 @@ border-radius:14px;
 
 cursor:pointer;
 
+font-weight:600;
+
 }
 
 .item:hover,
-.active{
+.item.active{
 
 background:
 
@@ -115,6 +119,8 @@ linear-gradient(
 );
 
 }
+
+/* CONTENT */
 
 .content{
 
@@ -142,58 +148,9 @@ margin-bottom:20px;
 
 }
 
-.tools{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
-
-gap:18px;
-
-}
-
-.tool{
-
-padding:22px;
-
-background:
-
-rgba(255,255,255,.04);
-
-border-radius:20px;
-
-}
-
-.tool h3{
-
-margin:12px 0;
-
-}
-
-.tool button{
-
-padding:12px 18px;
-
-border:none;
-
-border-radius:10px;
-
-background:#5860ff;
-
-color:white;
-
-cursor:pointer;
-
-}
-
 .app{
 
-display:none;
-
-margin-top:30px;
-
-padding:25px;
+padding:24px;
 
 border-radius:18px;
 
@@ -203,23 +160,35 @@ rgba(255,255,255,.04);
 
 }
 
-.app.active{
-
-display:block;
-
-}
-
 input{
 
 width:100%;
 
 padding:14px;
 
-margin-top:12px;
+margin-top:14px;
 
 border:none;
 
 border-radius:10px;
+
+}
+
+button{
+
+margin-top:16px;
+
+padding:12px 18px;
+
+border:none;
+
+background:#5d62ff;
+
+color:white;
+
+border-radius:12px;
+
+cursor:pointer;
 
 }
 
@@ -245,12 +214,6 @@ display:inline-block;
 
 }
 
-button{
-
-margin-top:12px;
-
-}
-
 @media(max-width:768px){
 
 body{
@@ -267,15 +230,7 @@ flex-direction:column;
 
 .menu{
 
-flex-direction:row;
-
 overflow:auto;
-
-}
-
-.item{
-
-white-space:nowrap;
 
 }
 
@@ -299,13 +254,37 @@ white-space:nowrap;
 
 </div>
 
+
 <div class="menu">
 
 <div class="item active"
-onclick="show('utilidades',this)">
+onclick="show('doc',this)">
+📄 DOCUMENTOS
+</div>
 
-🛠 UTILIDADES
+<div class="item"
+onclick="show('img',this)">
+🖼️ IMÁGENES
+</div>
 
+<div class="item"
+onclick="show('qr',this)">
+🔳 QR
+</div>
+
+<div class="item"
+onclick="show('crop',this)">
+✂️ RECORTAR
+</div>
+
+<div class="item"
+onclick="show('mp3',this)">
+🎵 DESCARGAR MP3
+</div>
+
+<div class="item"
+onclick="show('video',this)">
+🎬 DESCARGAR VIDEO
 </div>
 
 </div>
@@ -315,106 +294,26 @@ onclick="show('utilidades',this)">
 
 <div class="content">
 
-<div
-id="utilidades"
+<div id="doc"
 class="panel active">
 
-<h2>UTILIDADES</h2>
+<h2>📄 DOCUMENTOS</h2>
 
-<div class="tools">
-
-<div class="tool">
-
-📄
-
-<h3>DOCUMENTOS</h3>
-
-<button onclick="openTool('doc')">
-Abrir
-</button>
-
-</div>
-
-
-<div class="tool">
-
-🖼️
-
-<h3>IMÁGENES</h3>
-
-<button onclick="openTool('img')">
-Abrir
-</button>
-
-</div>
-
-
-<div class="tool">
-
-🔳
-
-<h3>QR</h3>
-
-<button onclick="openTool('qr')">
-Abrir
-</button>
-
-</div>
-
-
-<div class="tool">
-
-✂️
-
-<h3>RECORTAR</h3>
-
-<button onclick="openTool('crop')">
-Abrir
-</button>
-
-</div>
-
-
-<div class="tool">
-
-🎵
-
-<h3>DESCARGAR MP3</h3>
-
-<button onclick="openTool('mp3')">
-Abrir
-</button>
-
-</div>
-
-
-<div class="tool">
-
-🎬
-
-<h3>DESCARGAR VIDEO</h3>
-
-<button onclick="openTool('video')">
-Abrir
-</button>
-
-</div>
-
-</div>
-
-
-<div id="doc" class="app">
-
-<h3>📄 DOCUMENTOS</h3>
+<div class="app">
 
 <input type="file">
 
 </div>
 
+</div>
 
-<div id="img" class="app">
 
-<h3>🖼️ IMÁGENES</h3>
+<div id="img"
+class="panel">
+
+<h2>🖼️ IMÁGENES</h2>
+
+<div class="app">
 
 <input
 type="file"
@@ -425,16 +324,22 @@ onchange="preview(event)">
 
 </div>
 
+</div>
 
-<div id="qr" class="app">
 
-<h3>🔳 GENERADOR QR</h3>
+<div id="qr"
+class="panel">
+
+<h2>🔳 QR</h2>
+
+<div class="app">
 
 <input
 id="qrText"
 placeholder="Texto o URL">
 
-<button onclick="generateQR()">
+<button
+onclick="generateQR()">
 
 Generar
 
@@ -444,10 +349,15 @@ Generar
 
 </div>
 
+</div>
 
-<div id="crop" class="app">
 
-<h3>✂️ RECORTAR</h3>
+<div id="crop"
+class="panel">
+
+<h2>✂️ RECORTAR</h2>
+
+<div class="app">
 
 <input
 type="file"
@@ -455,34 +365,38 @@ accept="image/*">
 
 </div>
 
+</div>
 
-<div id="mp3" class="app">
 
-<h3>🎵 DESCARGAR MP3</h3>
+<div id="mp3"
+class="panel">
 
-<input
-placeholder="Pega URL">
+<h2>🎵 DESCARGAR MP3</h2>
+
+<div class="app">
+
+<input placeholder="Pega URL">
 
 <button>
-
 Descargar
-
 </button>
 
 </div>
 
+</div>
 
-<div id="video" class="app">
 
-<h3>🎬 DESCARGAR VIDEO</h3>
+<div id="video"
+class="panel">
 
-<input
-placeholder="Pega URL">
+<h2>🎬 DESCARGAR VIDEO</h2>
+
+<div class="app">
+
+<input placeholder="Pega URL">
 
 <button>
-
 Descargar
-
 </button>
 
 </div>
@@ -495,26 +409,31 @@ Descargar
 
 <script>
 
-function openTool(id){
+function show(id,el){
 
 document
-.querySelectorAll(".app")
+.querySelectorAll(".panel")
 .forEach(
-x=>x.classList.remove("active")
+x=>x.style.display="none"
 );
 
 document
 .getElementById(id)
-.classList.add("active");
+.style.display="block";
+
+document
+.querySelectorAll(".item")
+.forEach(
+x=>x.classList.remove("active")
+);
+
+el.classList.add("active");
 
 }
 
 function preview(e){
 
-document
-.getElementById(
-"preview"
-).src=
+preview.src=
 URL.createObjectURL(
 e.target.files[0]
 );
@@ -523,20 +442,11 @@ e.target.files[0]
 
 function generateQR(){
 
-let qr=
-document
-.getElementById(
-"qrcode"
-);
-
-qr.innerHTML="";
+qrcode.innerHTML="";
 
 new QRCode(
-qr,
-document
-.getElementById(
-"qrText"
-).value
+qrcode,
+qrText.value
 );
 
 }
